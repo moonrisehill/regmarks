@@ -1,0 +1,23 @@
+[package]
+name = "vectorcraft-cut-marks"
+version = "1.0.0"
+edition = "2021"
+description = "VectorCraft plug-in: barre noire + carrés de repérage autour de la sélection"
+
+[lib]
+# Un plug-in VectorCraft est un module WebAssembly « cdylib » sans imports.
+crate-type = ["cdylib"]
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+
+# Détache ce crate d'un éventuel workspace parent (le plug-in exemple de VectorCraft n'en fait pas partie).
+[workspace]
